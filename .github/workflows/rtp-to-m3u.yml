@@ -3,7 +3,6 @@ name: Convert RTP to M3U
 on:
   # 只保留手动触发工作流
   workflow_dispatch:
-  # 已移除定时触发设置
 
 jobs:
   convert:
@@ -26,6 +25,7 @@ jobs:
           import os
           import glob
           import datetime
+          import re
 
           # 记录转换时间
           now = datetime.datetime.utcnow()
@@ -33,6 +33,109 @@ jobs:
 
           # 确保输出目录存在
           os.makedirs("output/rtp", exist_ok=True)
+          
+          # 频道LOGO基础URL
+          LOGO_BASE_URL = "https://raw.githubusercontent.com/fanmingming/live/main/tv/"
+
+          # 频道分组和标识映射
+          def get_channel_info(channel_name):
+              # 频道名称标准化和清理
+              clean_name = channel_name.strip()
+              
+              # 初始化返回数据
+              info = {
+                  "tvg_id": clean_name,
+                  "tvg_name": clean_name,
+                  "tvg_logo": "",
+                  "group_title": "📺其他频道"
+              }
+              
+              # CCTV频道处理
+              if re.search(r'^CCTV', clean_name, re.IGNORECASE):
+                  # 提取CCTV后面的数字或名称
+                  cctv_match = re.search(r'^CCTV[-\s]*(\d+)[\s]*(.*?)$', clean_name, re.IGNORECASE)
+                  if cctv_match:
+                      cctv_num = cctv_match.group(1)
+                      # 生成标准化的频道名称
+                      std_name = f"CCTV-{cctv_num}"
+                      info["tvg_id"] = std_name
+                      info["tvg_name"] = std_name
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}CCTV{cctv_num}.png"
+                      info["group_title"] = "📺央视频道"
+                  else:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}CCTV.png"
+                      info["group_title"] = "📺央视频道"
+              
+              # 卫视频道处理
+              elif re.search(r'卫视$', clean_name):
+                  # 提取卫视名称
+                  ws_match = re.search(r'^(.+)卫视$', clean_name)
+                  if ws_match:
+                      ws_name = ws_match.group(1)
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}{ws_name}卫视.png"
+                      info["group_title"] = "📺卫视频道"
+              
+              # 其他类型频道分组
+              elif re.search(r'(上海|东方)', clean_name):
+                  info["group_title"] = "📺上海频道"
+                  if "上海" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}上海{clean_name.replace('上海','')}.png"
+                  elif "东方" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}{clean_name}.png"
+              elif re.search(r'(北京|BTV)', clean_name):
+                  info["group_title"] = "📺北京频道"
+                  if "BTV" in clean_name:
+                      btv_match = re.search(r'BTV[-\s]*(\d+)', clean_name)
+                      if btv_match:
+                          info["tvg_logo"] = f"{LOGO_BASE_URL}BTV{btv_match.group(1)}.png"
+              elif re.search(r'(广东|深圳|广州)', clean_name):
+                  info["group_title"] = "📺广东频道"
+              elif re.search(r'(浙江|杭州)', clean_name):
+                  info["group_title"] = "📺浙江频道"
+              elif re.search(r'(江苏|南京)', clean_name):
+                  info["group_title"] = "📺江苏频道"
+              elif re.search(r'(湖南|湖北)', clean_name):
+                  info["group_title"] = "📺湖南湖北频道"
+              elif re.search(r'(山东|山西)', clean_name):
+                  info["group_title"] = "📺山东山西频道"
+              elif re.search(r'(辽宁|吉林|黑龙江)', clean_name):
+                  info["group_title"] = "📺东北频道"
+              elif re.search(r'(四川|重庆|贵州|云南)', clean_name):
+                  info["group_title"] = "📺西南频道"
+              elif re.search(r'(河南|河北)', clean_name):
+                  info["group_title"] = "📺河南河北频道"
+              elif re.search(r'(安徽|福建|江西)', clean_name):
+                  info["group_title"] = "📺安徽福建江西频道"
+              elif re.search(r'(陕西|甘肃|宁夏|新疆|青海)', clean_name):
+                  info["group_title"] = "📺西北频道"
+              elif re.search(r'(内蒙古|西藏)', clean_name):
+                  info["group_title"] = "📺内蒙古西藏频道"
+              elif re.search(r'(CHC|电影|影视|剧场)', clean_name):
+                  info["group_title"] = "🎬影视频道"
+                  if "CHC" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}CHC.png"
+              elif re.search(r'(体育|足球|NBA)', clean_name):
+                  info["group_title"] = "⚽体育频道"
+                  if "体育" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}体育.png"
+              elif re.search(r'(音乐|MTV)', clean_name):
+                  info["group_title"] = "🎵音乐频道"
+              elif re.search(r'(新闻|资讯)', clean_name):
+                  info["group_title"] = "📰新闻频道"
+              elif re.search(r'(少儿|动画|卡通)', clean_name):
+                  info["group_title"] = "🧸少儿频道"
+              elif re.search(r'(纪录片|探索|Discovery|国家地理)', clean_name):
+                  info["group_title"] = "🌍纪录片频道"
+                  
+              # 尝试为没有匹配到特定规则的频道生成logo URL
+              if not info["tvg_logo"] and not re.search(r'(测试|备用|购物)', clean_name):
+                  # 移除常见后缀和特殊字符，尝试生成通用logo URL
+                  base_name = re.sub(r'[超高清]+$|[0-9]+$|[-\s]+$', '', clean_name)
+                  base_name = re.sub(r'[^\w\u4e00-\u9fff]+', '', base_name)
+                  if base_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}{base_name}.png"
+              
+              return info
 
           # 直接获取config/rtp目录下的所有txt文件
           rtp_files = glob.glob("config/rtp/*.txt")
@@ -44,7 +147,6 @@ jobs:
                   print("The config/rtp directory does not exist!")
               else:
                   print("Directory exists but no .txt files found.")
-                  # 列出目录中的所有文件
                   print("Files in config/rtp directory:")
                   for file in os.listdir("config/rtp"):
                       print(f"  - {os.path.join('config/rtp', file)}")
@@ -52,7 +154,15 @@ jobs:
               print(f"Found {len(rtp_files)} RTP files to process:")
               for file in rtp_files:
                   print(f"  - {file}")
-
+          
+          # 创建一个合并的用户文件
+          user_output_file = "output/user_result.m3u"
+          with open(user_output_file, "w", encoding="utf-8") as user_file:
+              # 写入M3U头部
+              user_file.write("#EXTM3U\n")
+              # 添加转换时间注释
+              user_file.write(f"#Created by GitHub Actions: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC\n\n")
+          
           for rtp_file in rtp_files:
               # 获取文件名（不含扩展名）作为地区名
               file_name = os.path.basename(rtp_file)
@@ -68,38 +178,97 @@ jobs:
                   with open(rtp_file, "r", encoding="utf-8") as f:
                       lines = f.readlines()
                   
+                  # 创建分组字典存储各组频道
+                  grouped_channels = {}
+                  
+                  # 首先按组分类所有频道
+                  for line in lines:
+                      line = line.strip()
+                      # 跳过空行和注释行
+                      if not line or line.startswith("#"):
+                          continue
+                          
+                      # 解析RTP地址行，格式可能是: 频道名,rtp://IP:端口
+                      parts = line.split(",")
+                      if len(parts) >= 2:
+                          channel_name = parts[0].strip()
+                          rtp_address = parts[1].strip()
+                          
+                          # 获取频道信息
+                          channel_info = get_channel_info(channel_name)
+                          
+                          # 将频道添加到相应的组
+                          group = channel_info["group_title"]
+                          if group not in grouped_channels:
+                              grouped_channels[group] = []
+                          
+                          grouped_channels[group].append((channel_name, rtp_address, channel_info))
+                  
                   # 创建M3U文件
                   with open(output_file, "w", encoding="utf-8") as f:
                       # 写入M3U头部
                       f.write("#EXTM3U\n")
                       # 添加转换时间注释
                       f.write(f"#Created by GitHub Actions: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
+                      f.write(f"#Source: {area_name}\n\n")
                       
                       # 统计处理的频道数
-                      channel_count = 0
+                      total_channel_count = 0
                       
-                      for line in lines:
-                          line = line.strip()
-                          # 跳过空行和注释行
-                          if not line or line.startswith("#"):
-                              continue
+                      # 定义组的显示顺序
+                      group_order = [
+                          "📺央视频道", 
+                          "📺卫视频道", 
+                          "📺上海频道", 
+                          "📺北京频道", 
+                          "📺广东频道", 
+                          "📺浙江频道", 
+                          "📺江苏频道", 
+                          "📺湖南湖北频道", 
+                          "📺山东山西频道", 
+                          "📺东北频道", 
+                          "📺西南频道", 
+                          "📺河南河北频道", 
+                          "📺安徽福建江西频道", 
+                          "📺西北频道", 
+                          "📺内蒙古西藏频道", 
+                          "🎬影视频道", 
+                          "⚽体育频道", 
+                          "📰新闻频道", 
+                          "🧸少儿频道", 
+                          "🎵音乐频道", 
+                          "🌍纪录片频道", 
+                          "📺其他频道"
+                      ]
+                      
+                      # 按组顺序写入频道
+                      for group in group_order:
+                          if group in grouped_channels and grouped_channels[group]:
+                              # 按频道名称排序
+                              channels = sorted(grouped_channels[group], key=lambda x: x[0])
                               
-                          # 解析RTP地址行，格式可能是: 频道名,rtp://IP:端口
-                          parts = line.split(",")
-                          if len(parts) >= 2:
-                              channel_name = parts[0].strip()
-                              rtp_address = parts[1].strip()
-                              
-                              # 直接使用完整的RTP地址，不再拆分
-                              # 写入EXTINF和URL
-                              f.write(f"#EXTINF:-1,{channel_name}\n")
-                              f.write(f"{rtp_address}\n")
-                              channel_count += 1
+                              # 写入组内所有频道
+                              for channel_name, rtp_address, info in channels:
+                                  tvg_id = info["tvg_id"]
+                                  tvg_name = info["tvg_name"]
+                                  tvg_logo = info["tvg_logo"]
+                                  group_title = info["group_title"]
+                                  
+                                  # 生成完整的EXTINF行
+                                  f.write(f'#EXTINF:-1 tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}\n')
+                                  f.write(f"{rtp_address}\n")
+                                  total_channel_count += 1
+                                  
+                                  # 同时写入到用户合并文件
+                                  with open(user_output_file, "a", encoding="utf-8") as user_file:
+                                      user_file.write(f'#EXTINF:-1 tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}\n')
+                                      user_file.write(f"{rtp_address}\n")
                   
-                  print(f"Created M3U file: {output_file} with {channel_count} channels")
+                  print(f"Created M3U file: {output_file} with {total_channel_count} channels in {len(grouped_channels)} groups")
               except Exception as e:
                   print(f"Error processing {rtp_file}: {str(e)}")
 
+          print(f"Created merged user file: {user_output_file}")
           print("Conversion completed!")
           EOF
 
@@ -110,11 +279,13 @@ jobs:
         run: |
           echo "Generated output files:"
           find output/rtp -type f | sort
+          echo "Generated user merged file:"
+          ls -l output/user_result.m3u
       
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add output/rtp/
-          git commit -m "Update RTP to M3U conversion [Manual Trigger]" -a || echo "No changes to commit"
+          git add output/rtp/ output/user_result.m3u
+          git commit -m "Update RTP to M3U conversion with beautiful format [Manual Trigger]" -a || echo "No changes to commit"
           git push
