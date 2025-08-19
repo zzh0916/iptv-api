@@ -1,71 +1,71 @@
 #EXTM3U
-#Created by GitHub Actions: 2025-08-19 16:26:22 UTC
+#Created by GitHub Actions: 2025-08-19 16:35:16 UTC
 #Source: 河南_联通
 
-#EXTINF:-1 tvg-name="CCTV-1" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV1.png" group-title="📺央视频道",CCTV-1
-rtp://225.1.4.1:1030
-#EXTINF:-1 tvg-name="CCTV-10" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV10.png" group-title="📺央视频道",CCTV-10
-rtp://225.1.4.10:1039
-#EXTINF:-1 tvg-name="CCTV-10" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV10.png" group-title="📺央视频道",CCTV-10高清
-rtp://225.1.4.78:1107
-#EXTINF:-1 tvg-name="CCTV-11" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV11.png" group-title="📺央视频道",CCTV-11
-rtp://225.1.4.11:1040
-#EXTINF:-1 tvg-name="CCTV-11" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV11.png" group-title="📺央视频道",CCTV-11高清
-rtp://225.1.4.215:1268
-#EXTINF:-1 tvg-name="CCTV-12" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV12.png" group-title="📺央视频道",CCTV-12
-rtp://225.1.4.12:1041
-#EXTINF:-1 tvg-name="CCTV-12" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV12.png" group-title="📺央视频道",CCTV-12高清
-rtp://225.1.4.79:1108
-#EXTINF:-1 tvg-name="CCTV-13" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV13.png" group-title="📺央视频道",CCTV-13
-rtp://225.1.4.13:1042
-#EXTINF:-1 tvg-name="CCTV-13" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV13.png" group-title="📺央视频道",CCTV-13高清
-rtp://225.1.4.113:1293
-#EXTINF:-1 tvg-name="CCTV-14" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV14.png" group-title="📺央视频道",CCTV-14
-rtp://225.1.4.14:1043
-#EXTINF:-1 tvg-name="CCTV-14" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV14.png" group-title="📺央视频道",CCTV-14高清
-rtp://225.1.4.80:1109
-#EXTINF:-1 tvg-name="CCTV-15" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV15.png" group-title="📺央视频道",CCTV-15
-rtp://225.1.4.15:1044
-#EXTINF:-1 tvg-name="CCTV-15" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV15.png" group-title="📺央视频道",CCTV-15高清
-rtp://225.1.4.216:1269
-#EXTINF:-1 tvg-name="CCTV-16" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV16.png" group-title="📺央视频道",CCTV-16高清
-rtp://225.1.5.46:1356
-#EXTINF:-1 tvg-name="CCTV-17" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV17.png" group-title="📺央视频道",CCTV-17
-rtp://225.1.4.227:2507
-#EXTINF:-1 tvg-name="CCTV-17" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV17.png" group-title="📺央视频道",CCTV-17高清
-rtp://225.1.4.226:2506
 #EXTINF:-1 tvg-name="CCTV-1" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV1.png" group-title="📺央视频道",CCTV-1高清
 rtp://225.1.4.73:1102
-#EXTINF:-1 tvg-name="CCTV-2" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV2.png" group-title="📺央视频道",CCTV-2
-rtp://225.1.4.2:1031
+#EXTINF:-1 tvg-name="CCTV-1" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV1.png" group-title="📺央视频道",CCTV-1
+rtp://225.1.4.1:1030
 #EXTINF:-1 tvg-name="CCTV-2" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV2.png" group-title="📺央视频道",CCTV-2高清
 rtp://225.1.4.74:1103
+#EXTINF:-1 tvg-name="CCTV-2" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV2.png" group-title="📺央视频道",CCTV-2
+rtp://225.1.4.2:1031
 #EXTINF:-1 tvg-name="CCTV-3" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV3.png" group-title="📺央视频道",CCTV-3高清
 rtp://225.1.4.158:1194
-#EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV-4
-rtp://225.1.4.4:1033
 #EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV-4高清
 rtp://225.1.5.30:1333
+#EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV-4
+rtp://225.1.4.4:1033
+#EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV4欧洲
+rtp://225.1.5.31:1342
+#EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV4美洲
+rtp://225.1.5.32:1343
 #EXTINF:-1 tvg-name="CCTV-5" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV5.png" group-title="📺央视频道",CCTV-5高清
 rtp://225.1.4.159:1195
 #EXTINF:-1 tvg-name="CCTV-5" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV5.png" group-title="📺央视频道",CCTV-5＋高清
 rtp://225.1.4.75:1104
 #EXTINF:-1 tvg-name="CCTV-6" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV6.png" group-title="📺央视频道",CCTV-6高清
 rtp://225.1.4.160:1196
-#EXTINF:-1 tvg-name="CCTV-7" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV7.png" group-title="📺央视频道",CCTV-7
-rtp://225.1.4.7:1036
 #EXTINF:-1 tvg-name="CCTV-7" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV7.png" group-title="📺央视频道",CCTV-7高清
 rtp://225.1.4.76:1105
+#EXTINF:-1 tvg-name="CCTV-7" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV7.png" group-title="📺央视频道",CCTV-7
+rtp://225.1.4.7:1036
 #EXTINF:-1 tvg-name="CCTV-8" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV8.png" group-title="📺央视频道",CCTV-8高清
 rtp://225.1.4.161:1197
-#EXTINF:-1 tvg-name="CCTV-9" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV9.png" group-title="📺央视频道",CCTV-9
-rtp://225.1.4.9:1038
 #EXTINF:-1 tvg-name="CCTV-9" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV9.png" group-title="📺央视频道",CCTV-9高清
 rtp://225.1.4.77:1106
-#EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV4欧洲
-rtp://225.1.5.31:1342
-#EXTINF:-1 tvg-name="CCTV-4" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV4.png" group-title="📺央视频道",CCTV4美洲
-rtp://225.1.5.32:1343
+#EXTINF:-1 tvg-name="CCTV-9" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV9.png" group-title="📺央视频道",CCTV-9
+rtp://225.1.4.9:1038
+#EXTINF:-1 tvg-name="CCTV-10" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV10.png" group-title="📺央视频道",CCTV-10高清
+rtp://225.1.4.78:1107
+#EXTINF:-1 tvg-name="CCTV-10" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV10.png" group-title="📺央视频道",CCTV-10
+rtp://225.1.4.10:1039
+#EXTINF:-1 tvg-name="CCTV-11" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV11.png" group-title="📺央视频道",CCTV-11高清
+rtp://225.1.4.215:1268
+#EXTINF:-1 tvg-name="CCTV-11" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV11.png" group-title="📺央视频道",CCTV-11
+rtp://225.1.4.11:1040
+#EXTINF:-1 tvg-name="CCTV-12" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV12.png" group-title="📺央视频道",CCTV-12高清
+rtp://225.1.4.79:1108
+#EXTINF:-1 tvg-name="CCTV-12" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV12.png" group-title="📺央视频道",CCTV-12
+rtp://225.1.4.12:1041
+#EXTINF:-1 tvg-name="CCTV-13" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV13.png" group-title="📺央视频道",CCTV-13高清
+rtp://225.1.4.113:1293
+#EXTINF:-1 tvg-name="CCTV-13" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV13.png" group-title="📺央视频道",CCTV-13
+rtp://225.1.4.13:1042
+#EXTINF:-1 tvg-name="CCTV-14" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV14.png" group-title="📺央视频道",CCTV-14高清
+rtp://225.1.4.80:1109
+#EXTINF:-1 tvg-name="CCTV-14" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV14.png" group-title="📺央视频道",CCTV-14
+rtp://225.1.4.14:1043
+#EXTINF:-1 tvg-name="CCTV-15" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV15.png" group-title="📺央视频道",CCTV-15高清
+rtp://225.1.4.216:1269
+#EXTINF:-1 tvg-name="CCTV-15" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV15.png" group-title="📺央视频道",CCTV-15
+rtp://225.1.4.15:1044
+#EXTINF:-1 tvg-name="CCTV-16" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV16.png" group-title="📺央视频道",CCTV-16高清
+rtp://225.1.5.46:1356
+#EXTINF:-1 tvg-name="CCTV-17" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV17.png" group-title="📺央视频道",CCTV-17高清
+rtp://225.1.4.226:2506
+#EXTINF:-1 tvg-name="CCTV-17" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CCTV17.png" group-title="📺央视频道",CCTV-17
+rtp://225.1.4.227:2507
 #EXTINF:-1 tvg-name="三沙卫视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/三沙卫视.png" group-title="📺卫视频道",三沙卫视
 rtp://225.1.4.234:1280
 #EXTINF:-1 tvg-name="东南卫视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/东南卫视.png" group-title="📺卫视频道",东南卫视
@@ -136,114 +136,110 @@ rtp://225.1.4.39:1068
 rtp://225.1.4.44:1073
 #EXTINF:-1 tvg-name="黑龙江卫视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/黑龙江卫视.png" group-title="📺卫视频道",黑龙江卫视
 rtp://225.1.4.28:1057
-#EXTINF:-1 tvg-name="东方卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/东方卫视高清.png" group-title="📺上海频道",东方卫视高清
-rtp://225.1.4.85:1114
-#EXTINF:-1 tvg-name="北京卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/北京卫视.png" group-title="📺北京频道",北京卫视高清
-rtp://225.1.4.81:1110
-#EXTINF:-1 tvg-name="广东卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/广东卫视.png" group-title="📺广东频道",广东卫视高清
-rtp://225.1.4.166:1207
-#EXTINF:-1 tvg-name="深圳卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/深圳卫视.png" group-title="📺广东频道",深圳卫视高清
-rtp://225.1.4.90:1119
-#EXTINF:-1 tvg-name="浙江卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/浙江卫视.png" group-title="📺浙江频道",浙江卫视高清
-rtp://225.1.4.84:1113
-#EXTINF:-1 tvg-name="江苏卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/江苏卫视.png" group-title="📺江苏频道",江苏卫视高清
-rtp://225.1.4.83:1112
-#EXTINF:-1 tvg-name="湖北卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/湖北卫视.png" group-title="📺湖南湖北频道",湖北卫视高清
-rtp://225.1.4.89:1118
-#EXTINF:-1 tvg-name="湖南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/湖南卫视.png" group-title="📺湖南湖北频道",湖南卫视高清
-rtp://225.1.4.82:1111
-#EXTINF:-1 tvg-name="山东卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/山东卫视.png" group-title="📺山东山西频道",山东卫视高清
-rtp://225.1.4.88:1117
-#EXTINF:-1 tvg-name="山东教育" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/山东教育.png" group-title="📺山东山西频道",山东教育
-rtp://225.1.4.164:1205
-#EXTINF:-1 tvg-name="吉林卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/吉林卫视.png" group-title="📺东北频道",吉林卫视高清
-rtp://225.1.4.174:1309
-#EXTINF:-1 tvg-name="辽宁卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/辽宁卫视.png" group-title="📺东北频道",辽宁卫视高清
-rtp://225.1.4.167:1208
-#EXTINF:-1 tvg-name="黑龙江卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/黑龙江卫视.png" group-title="📺东北频道",黑龙江卫视高清
-rtp://225.1.4.91:1120
-#EXTINF:-1 tvg-name="云南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/云南卫视.png" group-title="📺西南频道",云南卫视高清
+#EXTINF:-1 tvg-name="云南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/云南.png" group-title="📺地方频道",云南卫视高清
 rtp://225.1.4.152:1307
-#EXTINF:-1 tvg-name="四川卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/四川卫视.png" group-title="📺西南频道",四川卫视高清
+#EXTINF:-1 tvg-name="北京卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/北京.png" group-title="📺地方频道",北京卫视高清
+rtp://225.1.4.81:1110
+#EXTINF:-1 tvg-name="吉林卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/吉林.png" group-title="📺地方频道",吉林卫视高清
+rtp://225.1.4.174:1309
+#EXTINF:-1 tvg-name="四川卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/四川.png" group-title="📺地方频道",四川卫视高清
 rtp://225.1.4.151:1306
-#EXTINF:-1 tvg-name="贵州卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/贵州卫视.png" group-title="📺西南频道",贵州卫视高清
-rtp://225.1.4.122:1302
-#EXTINF:-1 tvg-name="重庆卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/重庆卫视.png" group-title="📺西南频道",重庆卫视高清
-rtp://225.1.4.157:1308
-#EXTINF:-1 tvg-name="河北卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河北卫视.png" group-title="📺河南河北频道",河北卫视高清
-rtp://225.1.4.123:1304
-#EXTINF:-1 tvg-name="河南IPTV-导视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南IPTV导视.png" group-title="📺河南河北频道",河南IPTV-导视
-rtp://225.1.4.194:1244
-#EXTINF:-1 tvg-name="河南乡村频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南乡村频道.png" group-title="📺河南河北频道",河南乡村频道
-rtp://225.1.4.120:1149
-#EXTINF:-1 tvg-name="河南公共频道高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南公共频道.png" group-title="📺河南河北频道",河南公共频道高清
-rtp://225.1.4.58:1087
-#EXTINF:-1 tvg-name="河南卫视4K" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南卫视4K.png" group-title="📺河南河北频道",河南卫视4K
-rtp://225.1.4.254:1300
-#EXTINF:-1 tvg-name="河南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南卫视.png" group-title="📺河南河北频道",河南卫视高清
-rtp://225.1.4.98:1127
-#EXTINF:-1 tvg-name="河南国际频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南国际频道.png" group-title="📺河南河北频道",河南国际频道
-rtp://225.1.4.102:1131
-#EXTINF:-1 tvg-name="河南文物宝库" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南文物宝库.png" group-title="📺河南河北频道",河南文物宝库
-rtp://225.1.4.100:1129
-#EXTINF:-1 tvg-name="河南新闻频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南新闻频道.png" group-title="📺河南河北频道",河南新闻频道
-rtp://225.1.4.56:1085
-#EXTINF:-1 tvg-name="河南梨园频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南梨园频道.png" group-title="📺河南河北频道",河南梨园频道
-rtp://225.1.4.99:1128
-#EXTINF:-1 tvg-name="河南欢腾购物" tvg-logo="" group-title="📺河南河北频道",河南欢腾购物
-rtp://225.1.4.57:1086
-#EXTINF:-1 tvg-name="河南武术世界" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南武术世界.png" group-title="📺河南河北频道",河南武术世界
-rtp://225.1.4.101:1130
-#EXTINF:-1 tvg-name="河南民生频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南民生频道.png" group-title="📺河南河北频道",河南民生频道
-rtp://225.1.4.53:1082
-#EXTINF:-1 tvg-name="河南法治频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南法治频道.png" group-title="📺河南河北频道",河南法治频道
-rtp://225.1.4.54:1083
-#EXTINF:-1 tvg-name="河南电视剧频道高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南电视剧频道.png" group-title="📺河南河北频道",河南电视剧频道高清
-rtp://225.1.4.55:1084
-#EXTINF:-1 tvg-name="河南移动电视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南移动电视.png" group-title="📺河南河北频道",河南移动电视
-rtp://225.1.5.40:1350
-#EXTINF:-1 tvg-name="河南都市频道高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南都市频道.png" group-title="📺河南河北频道",河南都市频道高清
-rtp://225.1.4.52:1081
-#EXTINF:-1 tvg-name="安徽卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽卫视.png" group-title="📺安徽福建江西频道",安徽卫视高清
+#EXTINF:-1 tvg-name="安徽卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽.png" group-title="📺地方频道",安徽卫视高清
 rtp://225.1.4.87:1116
-#EXTINF:-1 tvg-name="江西卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/江西卫视.png" group-title="📺安徽福建江西频道",江西卫视高清
+#EXTINF:-1 tvg-name="山东卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/山东.png" group-title="📺地方频道",山东卫视高清
+rtp://225.1.4.88:1117
+#EXTINF:-1 tvg-name="山东教育" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/山东教育.png" group-title="📺地方频道",山东教育
+rtp://225.1.4.164:1205
+#EXTINF:-1 tvg-name="广东卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/广东.png" group-title="📺地方频道",广东卫视高清
+rtp://225.1.4.166:1207
+#EXTINF:-1 tvg-name="江苏卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/江苏.png" group-title="📺地方频道",江苏卫视高清
+rtp://225.1.4.83:1112
+#EXTINF:-1 tvg-name="江西卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/江西.png" group-title="📺地方频道",江西卫视高清
 rtp://225.1.4.139:1305
-#EXTINF:-1 tvg-name="CHC动作电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CHC.png" group-title="🎬影视频道",CHC动作电影
+#EXTINF:-1 tvg-name="河北卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河北.png" group-title="📺地方频道",河北卫视高清
+rtp://225.1.4.123:1304
+#EXTINF:-1 tvg-name="河南IPTV-导视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南IPTV导视.png" group-title="📺地方频道",河南IPTV-导视
+rtp://225.1.4.194:1244
+#EXTINF:-1 tvg-name="河南乡村频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南乡村频道.png" group-title="📺地方频道",河南乡村频道
+rtp://225.1.4.120:1149
+#EXTINF:-1 tvg-name="河南公共频道高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南公共频道.png" group-title="📺地方频道",河南公共频道高清
+rtp://225.1.4.58:1087
+#EXTINF:-1 tvg-name="河南卫视4K" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南.png" group-title="📺地方频道",河南卫视4K
+rtp://225.1.4.254:1300
+#EXTINF:-1 tvg-name="河南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南.png" group-title="📺地方频道",河南卫视高清
+rtp://225.1.4.98:1127
+#EXTINF:-1 tvg-name="河南国际频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南国际频道.png" group-title="📺地方频道",河南国际频道
+rtp://225.1.4.102:1131
+#EXTINF:-1 tvg-name="河南文物宝库" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南文物宝库.png" group-title="📺地方频道",河南文物宝库
+rtp://225.1.4.100:1129
+#EXTINF:-1 tvg-name="河南新闻频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南.png" group-title="📺地方频道",河南新闻频道
+rtp://225.1.4.56:1085
+#EXTINF:-1 tvg-name="河南梨园频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南梨园频道.png" group-title="📺地方频道",河南梨园频道
+rtp://225.1.4.99:1128
+#EXTINF:-1 tvg-name="河南欢腾购物" tvg-logo="" group-title="📺地方频道",河南欢腾购物
+rtp://225.1.4.57:1086
+#EXTINF:-1 tvg-name="河南武术世界" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南武术世界.png" group-title="📺地方频道",河南武术世界
+rtp://225.1.4.101:1130
+#EXTINF:-1 tvg-name="河南民生频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南民生频道.png" group-title="📺地方频道",河南民生频道
+rtp://225.1.4.53:1082
+#EXTINF:-1 tvg-name="河南法治频道" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南法治频道.png" group-title="📺地方频道",河南法治频道
+rtp://225.1.4.54:1083
+#EXTINF:-1 tvg-name="河南电视剧频道高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南电视剧频道.png" group-title="📺地方频道",河南电视剧频道高清
+rtp://225.1.4.55:1084
+#EXTINF:-1 tvg-name="河南移动电视" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南移动电视.png" group-title="📺地方频道",河南移动电视
+rtp://225.1.5.40:1350
+#EXTINF:-1 tvg-name="河南都市频道高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/河南.png" group-title="📺地方频道",河南都市频道高清
+rtp://225.1.4.52:1081
+#EXTINF:-1 tvg-name="浙江卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/浙江.png" group-title="📺地方频道",浙江卫视高清
+rtp://225.1.4.84:1113
+#EXTINF:-1 tvg-name="湖北卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/湖北.png" group-title="📺地方频道",湖北卫视高清
+rtp://225.1.4.89:1118
+#EXTINF:-1 tvg-name="湖南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/湖南.png" group-title="📺地方频道",湖南卫视高清
+rtp://225.1.4.82:1111
+#EXTINF:-1 tvg-name="贵州卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/贵州.png" group-title="📺地方频道",贵州卫视高清
+rtp://225.1.4.122:1302
+#EXTINF:-1 tvg-name="辽宁卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/辽宁.png" group-title="📺地方频道",辽宁卫视高清
+rtp://225.1.4.167:1208
+#EXTINF:-1 tvg-name="重庆卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/重庆.png" group-title="📺地方频道",重庆卫视高清
+rtp://225.1.4.157:1308
+#EXTINF:-1 tvg-name="黑龙江卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/黑龙江.png" group-title="📺地方频道",黑龙江卫视高清
+rtp://225.1.4.91:1120
+#EXTINF:-1 tvg-name="CHC动作电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CHC.png" group-title="📺专题频道",CHC动作电影
 rtp://225.1.4.208:1261
-#EXTINF:-1 tvg-name="CHC家庭影院" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CHC.png" group-title="🎬影视频道",CHC家庭影院
+#EXTINF:-1 tvg-name="CHC家庭影院" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CHC.png" group-title="📺专题频道",CHC家庭影院
 rtp://225.1.4.209:1262
-#EXTINF:-1 tvg-name="CHC高清电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CHC.png" group-title="🎬影视频道",CHC高清电影
+#EXTINF:-1 tvg-name="CHC高清电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CHC.png" group-title="📺专题频道",CHC高清电影
 rtp://225.1.4.207:1260
-#EXTINF:-1 tvg-name="IPTV谍战剧场" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/IPTV谍战剧场.png" group-title="🎬影视频道",IPTV谍战剧场
+#EXTINF:-1 tvg-name="IPTV谍战剧场" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/IPTV谍战剧场.png" group-title="📺专题频道",IPTV谍战剧场
 rtp://225.1.4.185:1240
-#EXTINF:-1 tvg-name="热播剧场" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/热播剧场.png" group-title="🎬影视频道",热播剧场
-rtp://225.1.4.190:1239
-#EXTINF:-1 tvg-name="爱电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/爱电影.png" group-title="🎬影视频道",爱电影
-rtp://225.1.4.6:1035
-#EXTINF:-1 tvg-name="经典电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/经典电影.png" group-title="🎬影视频道",经典电影
-rtp://225.1.4.175:1233
-#EXTINF:-1 tvg-name="体育竞技高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/体育.png" group-title="⚽体育频道",体育竞技高清
+#EXTINF:-1 tvg-name="体育竞技高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/体育.png" group-title="📺专题频道",体育竞技高清
 rtp://225.1.4.235:1281
-#EXTINF:-1 tvg-name="爱体育" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/体育.png" group-title="⚽体育频道",爱体育
-rtp://225.1.4.5:1034
-#EXTINF:-1 tvg-name="爱体育高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/体育.png" group-title="⚽体育频道",爱体育高清
-rtp://225.1.4.168:1220
-#EXTINF:-1 tvg-name="足球" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/足球.png" group-title="⚽体育频道",足球
-rtp://225.1.4.200:1250
-#EXTINF:-1 tvg-name="大象新闻" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/大象新闻.png" group-title="📰新闻频道",大象新闻
-rtp://225.1.5.45:1355
-#EXTINF:-1 tvg-name="驻马店新闻综合" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/驻马店新闻综合.png" group-title="📰新闻频道",驻马店新闻综合
-rtp://225.1.4.132:1168
-#EXTINF:-1 tvg-name="卡酷动画" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/卡酷动画.png" group-title="🧸少儿频道",卡酷动画
+#EXTINF:-1 tvg-name="卡酷动画" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/少儿.png" group-title="📺专题频道",卡酷动画
 rtp://225.1.4.48:1077
-#EXTINF:-1 tvg-name="嘉佳卡通" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/嘉佳卡通.png" group-title="🧸少儿频道",嘉佳卡通
+#EXTINF:-1 tvg-name="嘉佳卡通" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/嘉佳卡通.png" group-title="📺专题频道",嘉佳卡通
 rtp://225.1.4.92:1121
-#EXTINF:-1 tvg-name="少儿动画" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/少儿动画.png" group-title="🧸少儿频道",少儿动画
+#EXTINF:-1 tvg-name="大象新闻" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/大象新闻.png" group-title="📺专题频道",大象新闻
+rtp://225.1.5.45:1355
+#EXTINF:-1 tvg-name="少儿动画" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/少儿.png" group-title="📺专题频道",少儿动画
 rtp://225.1.4.189:1238
-#EXTINF:-1 tvg-name="金鹰卡通" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/金鹰卡通.png" group-title="🧸少儿频道",金鹰卡通
+#EXTINF:-1 tvg-name="热播剧场" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/热播剧场.png" group-title="📺专题频道",热播剧场
+rtp://225.1.4.190:1239
+#EXTINF:-1 tvg-name="爱体育" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/体育.png" group-title="📺专题频道",爱体育
+rtp://225.1.4.5:1034
+#EXTINF:-1 tvg-name="爱体育高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/体育.png" group-title="📺专题频道",爱体育高清
+rtp://225.1.4.168:1220
+#EXTINF:-1 tvg-name="爱电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/电影.png" group-title="📺专题频道",爱电影
+rtp://225.1.4.6:1035
+#EXTINF:-1 tvg-name="经典电影" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/电影.png" group-title="📺专题频道",经典电影
+rtp://225.1.4.175:1233
+#EXTINF:-1 tvg-name="足球" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/足球.png" group-title="📺专题频道",足球
+rtp://225.1.4.200:1250
+#EXTINF:-1 tvg-name="金鹰卡通" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/金鹰卡通.png" group-title="📺专题频道",金鹰卡通
 rtp://225.1.4.49:1078
-#EXTINF:-1 tvg-name="音乐现场" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/音乐现场.png" group-title="🎵音乐频道",音乐现场
+#EXTINF:-1 tvg-name="音乐现场" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/音乐.png" group-title="📺专题频道",音乐现场
 rtp://225.1.4.184:1224
+#EXTINF:-1 tvg-name="驻马店新闻综合" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/驻马店新闻综合.png" group-title="📺专题频道",驻马店新闻综合
+rtp://225.1.4.132:1168
 #EXTINF:-1 tvg-name="CGTN" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png" group-title="📺其他频道",CGTN
 rtp://225.1.4.16:1045
 #EXTINF:-1 tvg-name="CGTN俄语" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN俄语.png" group-title="📺其他频道",CGTN俄语
@@ -266,6 +262,8 @@ rtp://225.1.4.186:1235
 rtp://225.1.4.187:1236
 #EXTINF:-1 tvg-name="东南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/东南卫视.png" group-title="📺其他频道",东南卫视高清
 rtp://225.1.4.228:1274
+#EXTINF:-1 tvg-name="东方卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/东方卫视.png" group-title="📺其他频道",东方卫视高清
+rtp://225.1.4.85:1114
 #EXTINF:-1 tvg-name="中国教育-1高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/中国教育1.png" group-title="📺其他频道",中国教育-1高清
 rtp://225.1.4.173:1712
 #EXTINF:-1 tvg-name="中国教育-2" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/中国教育.png" group-title="📺其他频道",中国教育-2
@@ -306,6 +304,8 @@ rtp://225.1.4.179:1228
 rtp://225.1.4.236:1282
 #EXTINF:-1 tvg-name="海南卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/海南卫视.png" group-title="📺其他频道",海南卫视高清
 rtp://225.1.4.195:1310
+#EXTINF:-1 tvg-name="深圳卫视高清" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/深圳卫视.png" group-title="📺其他频道",深圳卫视高清
+rtp://225.1.4.90:1119
 #EXTINF:-1 tvg-name="爱上-4k" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/爱上4k.png" group-title="📺其他频道",爱上-4k
 rtp://225.1.4.162:1204
 #EXTINF:-1 tvg-name="爱大剧" tvg-logo="https://raw.githubusercontent.com/fanmingming/live/main/tv/爱大剧.png" group-title="📺其他频道",爱大剧
