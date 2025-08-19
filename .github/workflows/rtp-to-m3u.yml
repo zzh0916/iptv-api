@@ -1,0 +1,120 @@
+name: Convert RTP to M3U
+
+on:
+  # 只保留手动触发工作流
+  workflow_dispatch:
+  # 已移除定时触发设置
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Create output directory
+        run: mkdir -p output/rtp
+        
+      - name: Create conversion script
+        run: |
+          cat > convert_rtp_to_m3u.py << 'EOF'
+          import os
+          import glob
+          import datetime
+
+          # 记录转换时间
+          now = datetime.datetime.utcnow()
+          print(f"Conversion started at: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC")
+
+          # 确保输出目录存在
+          os.makedirs("output/rtp", exist_ok=True)
+
+          # 直接获取config/rtp目录下的所有txt文件
+          rtp_files = glob.glob("config/rtp/*.txt")
+          
+          if not rtp_files:
+              print("WARNING: No RTP files found in config/rtp directory!")
+              # 检查目录是否存在
+              if not os.path.exists("config/rtp"):
+                  print("The config/rtp directory does not exist!")
+              else:
+                  print("Directory exists but no .txt files found.")
+                  # 列出目录中的所有文件
+                  print("Files in config/rtp directory:")
+                  for file in os.listdir("config/rtp"):
+                      print(f"  - {os.path.join('config/rtp', file)}")
+          else:
+              print(f"Found {len(rtp_files)} RTP files to process:")
+              for file in rtp_files:
+                  print(f"  - {file}")
+
+          for rtp_file in rtp_files:
+              # 获取文件名（不含扩展名）作为地区名
+              file_name = os.path.basename(rtp_file)
+              area_name = os.path.splitext(file_name)[0]  # 去掉.txt扩展名
+                  
+              # 创建对应的输出文件
+              output_file = f"output/rtp/{area_name}.m3u"
+              
+              print(f"Processing {rtp_file} -> {output_file}")
+              
+              try:
+                  # 读取RTP文件
+                  with open(rtp_file, "r", encoding="utf-8") as f:
+                      lines = f.readlines()
+                  
+                  # 创建M3U文件
+                  with open(output_file, "w", encoding="utf-8") as f:
+                      # 写入M3U头部
+                      f.write("#EXTM3U\n")
+                      # 添加转换时间注释
+                      f.write(f"#Created by GitHub Actions: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
+                      
+                      # 统计处理的频道数
+                      channel_count = 0
+                      
+                      for line in lines:
+                          line = line.strip()
+                          # 跳过空行和注释行
+                          if not line or line.startswith("#"):
+                              continue
+                              
+                          # 解析RTP地址行，格式可能是: 频道名,rtp://IP:端口
+                          parts = line.split(",")
+                          if len(parts) >= 2:
+                              channel_name = parts[0].strip()
+                              rtp_address = parts[1].strip()
+                              
+                              # 直接使用完整的RTP地址，不再拆分
+                              # 写入EXTINF和URL
+                              f.write(f"#EXTINF:-1,{channel_name}\n")
+                              f.write(f"{rtp_address}\n")
+                              channel_count += 1
+                  
+                  print(f"Created M3U file: {output_file} with {channel_count} channels")
+              except Exception as e:
+                  print(f"Error processing {rtp_file}: {str(e)}")
+
+          print("Conversion completed!")
+          EOF
+
+      - name: Run conversion script
+        run: python convert_rtp_to_m3u.py
+        
+      - name: List output files
+        run: |
+          echo "Generated output files:"
+          find output/rtp -type f | sort
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add output/rtp/
+          git commit -m "Update RTP to M3U conversion [Manual Trigger]" -a || echo "No changes to commit"
+          git push
