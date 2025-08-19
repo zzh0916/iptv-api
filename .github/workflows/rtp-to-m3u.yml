@@ -47,7 +47,8 @@ jobs:
                   "tvg_id": clean_name,
                   "tvg_name": clean_name,
                   "tvg_logo": "",
-                  "group_title": "📺其他频道"
+                  "group_title": "📺其他频道",
+                  "sort_key": clean_name  # 初始排序键
               }
               
               # CCTV频道处理
@@ -62,9 +63,14 @@ jobs:
                       info["tvg_name"] = std_name
                       info["tvg_logo"] = f"{LOGO_BASE_URL}CCTV{cctv_num}.png"
                       info["group_title"] = "📺央视频道"
+                      # 为CCTV设置排序键，确保数字顺序
+                      info["sort_key"] = f"CCTV{int(cctv_num):02d}"
                   else:
+                      # 处理如CCTV-新闻等特殊频道
                       info["tvg_logo"] = f"{LOGO_BASE_URL}CCTV.png"
                       info["group_title"] = "📺央视频道"
+                      # 将非数字CCTV放在最后
+                      info["sort_key"] = f"CCTV99{clean_name}"
               
               # 卫视频道处理
               elif re.search(r'卫视$', clean_name):
@@ -74,58 +80,35 @@ jobs:
                       ws_name = ws_match.group(1)
                       info["tvg_logo"] = f"{LOGO_BASE_URL}{ws_name}卫视.png"
                       info["group_title"] = "📺卫视频道"
+                      # 按省份名称排序
+                      info["sort_key"] = f"卫视{ws_name}"
               
-              # 其他类型频道分组
-              elif re.search(r'(上海|东方)', clean_name):
-                  info["group_title"] = "📺上海频道"
-                  if "上海" in clean_name:
-                      info["tvg_logo"] = f"{LOGO_BASE_URL}上海{clean_name.replace('上海','')}.png"
-                  elif "东方" in clean_name:
-                      info["tvg_logo"] = f"{LOGO_BASE_URL}{clean_name}.png"
-              elif re.search(r'(北京|BTV)', clean_name):
-                  info["group_title"] = "📺北京频道"
-                  if "BTV" in clean_name:
-                      btv_match = re.search(r'BTV[-\s]*(\d+)', clean_name)
-                      if btv_match:
-                          info["tvg_logo"] = f"{LOGO_BASE_URL}BTV{btv_match.group(1)}.png"
-              elif re.search(r'(广东|深圳|广州)', clean_name):
-                  info["group_title"] = "📺广东频道"
-              elif re.search(r'(浙江|杭州)', clean_name):
-                  info["group_title"] = "📺浙江频道"
-              elif re.search(r'(江苏|南京)', clean_name):
-                  info["group_title"] = "📺江苏频道"
-              elif re.search(r'(湖南|湖北)', clean_name):
-                  info["group_title"] = "📺湖南湖北频道"
-              elif re.search(r'(山东|山西)', clean_name):
-                  info["group_title"] = "📺山东山西频道"
-              elif re.search(r'(辽宁|吉林|黑龙江)', clean_name):
-                  info["group_title"] = "📺东北频道"
-              elif re.search(r'(四川|重庆|贵州|云南)', clean_name):
-                  info["group_title"] = "📺西南频道"
-              elif re.search(r'(河南|河北)', clean_name):
-                  info["group_title"] = "📺河南河北频道"
-              elif re.search(r'(安徽|福建|江西)', clean_name):
-                  info["group_title"] = "📺安徽福建江西频道"
-              elif re.search(r'(陕西|甘肃|宁夏|新疆|青海)', clean_name):
-                  info["group_title"] = "📺西北频道"
-              elif re.search(r'(内蒙古|西藏)', clean_name):
-                  info["group_title"] = "📺内蒙古西藏频道"
-              elif re.search(r'(CHC|电影|影视|剧场)', clean_name):
-                  info["group_title"] = "🎬影视频道"
+              # 简化分组 - 只分为四个大类
+              elif re.search(r'(上海|北京|广东|浙江|江苏|湖南|湖北|山东|山西|辽宁|吉林|黑龙江|四川|重庆|贵州|云南|河南|河北|安徽|福建|江西|陕西|甘肃|宁夏|新疆|青海|内蒙古|西藏|香港|澳门|台湾)', clean_name):
+                  info["group_title"] = "📺地方频道"
+                  # 尝试匹配地方台logo
+                  region_match = re.search(r'^([\u4e00-\u9fff]+)(卫视|电视台|综合|新闻|都市|生活|影视|娱乐)', clean_name)
+                  if region_match:
+                      region = region_match.group(1)
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}{region}.png"
+              
+              # 所有专题频道归为一类
+              elif re.search(r'(CHC|电影|影视|剧场|体育|足球|NBA|音乐|MTV|新闻|资讯|少儿|动画|卡通|纪录片|探索|Discovery|国家地理)', clean_name):
+                  info["group_title"] = "📺专题频道"
+                  
+                  # 尝试为特定类型频道生成logo
                   if "CHC" in clean_name:
                       info["tvg_logo"] = f"{LOGO_BASE_URL}CHC.png"
-              elif re.search(r'(体育|足球|NBA)', clean_name):
-                  info["group_title"] = "⚽体育频道"
-                  if "体育" in clean_name:
+                  elif "体育" in clean_name:
                       info["tvg_logo"] = f"{LOGO_BASE_URL}体育.png"
-              elif re.search(r'(音乐|MTV)', clean_name):
-                  info["group_title"] = "🎵音乐频道"
-              elif re.search(r'(新闻|资讯)', clean_name):
-                  info["group_title"] = "📰新闻频道"
-              elif re.search(r'(少儿|动画|卡通)', clean_name):
-                  info["group_title"] = "🧸少儿频道"
-              elif re.search(r'(纪录片|探索|Discovery|国家地理)', clean_name):
-                  info["group_title"] = "🌍纪录片频道"
+                  elif "音乐" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}音乐.png"
+                  elif "少儿" in clean_name or "动画" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}少儿.png"
+                  elif "纪录" in clean_name or "探索" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}纪录.png"
+                  elif "电影" in clean_name or "影视" in clean_name:
+                      info["tvg_logo"] = f"{LOGO_BASE_URL}电影.png"
                   
               # 尝试为没有匹配到特定规则的频道生成logo URL
               if not info["tvg_logo"] and not re.search(r'(测试|备用|购物)', clean_name):
@@ -154,14 +137,6 @@ jobs:
               print(f"Found {len(rtp_files)} RTP files to process:")
               for file in rtp_files:
                   print(f"  - {file}")
-          
-          # 创建一个合并的用户文件
-          user_output_file = "output/user_result.m3u"
-          with open(user_output_file, "w", encoding="utf-8") as user_file:
-              # 写入M3U头部
-              user_file.write("#EXTM3U\n")
-              # 添加转换时间注释
-              user_file.write(f"#Created by GitHub Actions: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC\n\n")
           
           for rtp_file in rtp_files:
               # 获取文件名（不含扩展名）作为地区名
@@ -215,37 +190,20 @@ jobs:
                       # 统计处理的频道数
                       total_channel_count = 0
                       
-                      # 定义组的显示顺序
+                      # 定义组的显示顺序 - 使用简化的四个分组
                       group_order = [
                           "📺央视频道", 
                           "📺卫视频道", 
-                          "📺上海频道", 
-                          "📺北京频道", 
-                          "📺广东频道", 
-                          "📺浙江频道", 
-                          "📺江苏频道", 
-                          "📺湖南湖北频道", 
-                          "📺山东山西频道", 
-                          "📺东北频道", 
-                          "📺西南频道", 
-                          "📺河南河北频道", 
-                          "📺安徽福建江西频道", 
-                          "📺西北频道", 
-                          "📺内蒙古西藏频道", 
-                          "🎬影视频道", 
-                          "⚽体育频道", 
-                          "📰新闻频道", 
-                          "🧸少儿频道", 
-                          "🎵音乐频道", 
-                          "🌍纪录片频道", 
+                          "📺地方频道", 
+                          "📺专题频道", 
                           "📺其他频道"
                       ]
                       
                       # 按组顺序写入频道
                       for group in group_order:
                           if group in grouped_channels and grouped_channels[group]:
-                              # 按频道名称排序
-                              channels = sorted(grouped_channels[group], key=lambda x: x[0])
+                              # 按自定义排序键排序，确保CCTV按数字顺序等
+                              channels = sorted(grouped_channels[group], key=lambda x: x[2]["sort_key"])
                               
                               # 写入组内所有频道
                               for channel_name, rtp_address, info in channels:
@@ -258,17 +216,11 @@ jobs:
                                   f.write(f'#EXTINF:-1 tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}\n')
                                   f.write(f"{rtp_address}\n")
                                   total_channel_count += 1
-                                  
-                                  # 同时写入到用户合并文件
-                                  with open(user_output_file, "a", encoding="utf-8") as user_file:
-                                      user_file.write(f'#EXTINF:-1 tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}\n')
-                                      user_file.write(f"{rtp_address}\n")
                   
                   print(f"Created M3U file: {output_file} with {total_channel_count} channels in {len(grouped_channels)} groups")
               except Exception as e:
                   print(f"Error processing {rtp_file}: {str(e)}")
 
-          print(f"Created merged user file: {user_output_file}")
           print("Conversion completed!")
           EOF
 
@@ -279,13 +231,11 @@ jobs:
         run: |
           echo "Generated output files:"
           find output/rtp -type f | sort
-          echo "Generated user merged file:"
-          ls -l output/user_result.m3u
       
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add output/rtp/ output/user_result.m3u
-          git commit -m "Update RTP to M3U conversion with beautiful format [Manual Trigger]" -a || echo "No changes to commit"
+          git add output/rtp/
+          git commit -m "Update RTP to M3U conversion with simplified groups [Manual Trigger]" -a || echo "No changes to commit"
           git push
