@@ -305,7 +305,7 @@ class ConfigManager:
 
     @property
     def online_search_page_num(self):
-        return config.getint("Settings", "online_search_page_num", fallback=1)
+        return self.config.getint("Settings", "online_search_page_num", fallback=1)
 
     @property
     def open_empty_category(self):

@@ -9,6 +9,7 @@ from collections import defaultdict
 from logging.handlers import RotatingFileHandler
 from time import time
 from urllib.parse import urlparse, urlunparse
+from typing import Any, Dict, List, Set, Optional
 
 import pytz
 import requests
@@ -281,34 +282,68 @@ def check_url_by_keywords(url, keywords=None):
         return any(keyword in url for keyword in keywords)
 
 
-def merge_objects(*objects, match_key=None):
+def merge_objects(*objects: Dict[str, Any], match_key: Optional[str] = None) -> Dict[str, Any]:
     """
-    Merge objects
+    Merge multiple dictionaries into a single dictionary with smart handling of nested structures.
+
+    Behavior:
+    - Dict values: deep-merge recursively
+    - Set values: union (update)
+    - List values:
+        * When `match_key` is provided and lists contain dicts, merge by that key:
+          - Existing items indexed by `item[match_key]`
+          - If incoming `new_item[match_key]` exists, deep-merge its dict content
+          - Otherwise, append the new item
+        * When `match_key` is not provided or lists are not dicts, append unique items
+          (extend only items not already present, preserving order)
+    - Scalar values: override when different
 
     Args:
-        *objects: Dictionaries to merge
-        match_key: If dict1[key] is a list of dicts, this key will be used to match and merge dicts
+        *objects: One or more dict objects to merge (all must be dict)
+        match_key: Optional key used for merging lists of dicts by identity
+
+    Returns:
+        merged_dict: The merged dictionary
+
+    Raises:
+        TypeError: If any input object is not a dict
     """
 
     def merge_dicts(dict1, dict2):
         for key, value in dict2.items():
             if key in dict1:
-                if isinstance(dict1[key], dict) and isinstance(value, dict):
-                    merge_dicts(dict1[key], value)
-                elif isinstance(dict1[key], set):
-                    dict1[key].update(value)
-                elif isinstance(dict1[key], list) and isinstance(value, list):
-                    if match_key and all(isinstance(x, dict) for x in dict1[key] + value):
-                        existing_items = {item[match_key]: item for item in dict1[key]}
-                        for new_item in value:
-                            if match_key in new_item and new_item[match_key] in existing_items:
-                                merge_dicts(existing_items[new_item[match_key]], new_item)
+                left = dict1[key]
+                right = value
+
+                # dict: deep merge
+                if isinstance(left, dict) and isinstance(right, dict):
+                    merge_dicts(left, right)
+
+                # set: union
+                elif isinstance(left, set) and isinstance(right, set):
+                    left.update(right)
+
+                # list: merge with match_key or append uniques
+                elif isinstance(left, list) and isinstance(right, list):
+                    # Both lists of dicts and a match_key is provided
+                    if match_key and all(isinstance(x, dict) for x in left + right):
+                        existing_items = {item.get(match_key): item for item in left if match_key in item}
+                        for new_item in right:
+                            mk = new_item.get(match_key)
+                            if mk in existing_items and mk is not None:
+                                # Deep-merge dict contents
+                                merge_dicts(existing_items[mk], new_item)
                             else:
-                                dict1[key].append(new_item)
+                                # Append new dict item
+                                left.append(new_item)
                     else:
-                        dict1[key].extend(x for x in value if x not in dict1[key])
-                elif value != dict1[key]:
-                    dict1[key] = value
+                        # Append unique items preserving order
+                        left.extend(x for x in right if x not in left)
+
+                # scalar or type mismatch: override if different
+                else:
+                    if right != left:
+                        dict1[key] = right
             else:
                 dict1[key] = value
 
@@ -483,20 +518,7 @@ def remove_cache_info(string):
     return re.sub(r"[.*]?\$?-?cache:.*", "", string)
 
 
-def resource_path(relative_path, persistent=False):
-    """
-    Get the resource path
-    """
-    base_path = os.path.abspath(".")
-    total_path = os.path.join(base_path, relative_path)
-    if persistent or os.path.exists(total_path):
-        return total_path
-    else:
-        try:
-            base_path = sys._MEIPASS
-            return os.path.join(base_path, relative_path)
-        except Exception:
-            return total_path
+# NOTE: resource_path is imported from utils.config to provide a single-source implementation.
 
 
 def write_content_into_txt(content, path=None, position=None, callback=None):
@@ -576,9 +598,8 @@ def get_name_url(content, pattern, open_headers=False, check_url=True):
         }
         headers = {k: v for k, v in headers.items() if v}
         catchup = {k: v for k, v in catchup.items() if v}
-        if not open_headers and headers:
-            continue
-        if open_headers:
+        # 保留URL项；仅在开启open_headers时注入headers
+        if open_headers and headers:
             data["headers"] = headers
         data["catchup"] = catchup
         result.append(data)
@@ -686,13 +707,32 @@ def join_url(url1: str, url2: str) -> str:
 def add_port_to_url(url: str, port: int) -> str:
     """
     Add port to the url
+
+    Rules:
+    - If the URL already contains a port, keep the existing port (do not append another).
+    - Only append the provided port when the original URL has no port.
     """
     parsed = urlparse(url)
-    netloc = parsed.netloc
-    if parsed.username and parsed.password:
-        netloc = f"{parsed.username}:{parsed.password}@{netloc}"
-    if port:
-        netloc = f"{netloc}:{port}"
+
+    # Extract userinfo if present
+    userinfo = ""
+    if parsed.username:
+        userinfo = parsed.username
+        if parsed.password:
+            userinfo += f":{parsed.password}"
+        userinfo += "@"
+
+    host = parsed.hostname or parsed.netloc
+    existing_port = parsed.port
+
+    # Decide final port
+    final_port = existing_port if existing_port else (port if port else None)
+
+    if final_port:
+        netloc = f"{userinfo}{host}:{final_port}"
+    else:
+        netloc = f"{userinfo}{host}"
+
     new_url = urlunparse((
         parsed.scheme,
         netloc,

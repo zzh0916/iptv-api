@@ -20,6 +20,12 @@ nginx_path = resource_path(os.path.join(nginx_dir, 'nginx.exe'))
 stop_path = resource_path(os.path.join(nginx_dir, 'stop.bat'))
 hls_temp_path = resource_path(os.path.join(nginx_dir, 'temp/hls')) if sys.platform == "win32" else '/tmp/hls'
 
+def ensure_hls_dir():
+    try:
+        os.makedirs(hls_temp_path, exist_ok=True)
+    except Exception as e:
+        print(f"❌ HLS temp dir create failed: {e}")
+
 live_running_streams = OrderedDict()
 hls_running_streams = OrderedDict()
 MAX_STREAMS = 10
@@ -194,7 +200,7 @@ def show_log():
 
 
 @app.route("/log/speed-test")
-def show_log():
+def show_speed_test_log():
     if os.path.exists(constants.speed_test_log_path):
         with open(constants.speed_test_log_path, "r", encoding="utf-8") as file:
             content = file.read()
@@ -225,20 +231,59 @@ def get_channel_data(channel_id):
 
 
 def monitor_stream_process(streams, process, channel_id):
-    process.wait()
-    if channel_id in streams:
-        del streams[channel_id]
+    try:
+        stdout, stderr = process.communicate()
+        rc = process.returncode
+        if rc != 0:
+            try:
+                err_text = stderr.decode("utf-8", errors="ignore") if stderr else ""
+            except Exception:
+                err_text = str(stderr)
+            print(f"❌ FFmpeg process exit (channel_id={channel_id}, rc={rc}): {err_text[:500]}")
+    except Exception as e:
+        print(f"❌ Monitor stream process failed (channel_id={channel_id}): {e}")
+    finally:
+        if channel_id in streams:
+            del streams[channel_id]
 
 
 def cleanup_streams(streams):
+    # 清理已结束的进程
     to_delete = []
-    for channel_id, process in streams.items():
+    for channel_id, process in list(streams.items()):
         if process.poll() is not None:
             to_delete.append(channel_id)
     for channel_id in to_delete:
-        del streams[channel_id]
+        try:
+            proc = streams.get(channel_id)
+            # 再次确认状态，尽量释放资源
+            if proc and proc.poll() is None:
+                try:
+                    proc.terminate()
+                    proc.wait(timeout=2)
+                except Exception:
+                    try:
+                        proc.kill()
+                    except Exception:
+                        pass
+            del streams[channel_id]
+        except Exception as e:
+            print(f"❌ Cleanup finished stream {channel_id} failed: {e}")
+    # 超出上限时淘汰最早的进程，并主动终止
     while len(streams) > MAX_STREAMS:
-        streams.popitem(last=False)
+        try:
+            oldest_id, proc = streams.popitem(last=False)
+            if proc and proc.poll() is None:
+                try:
+                    proc.terminate()
+                    proc.wait(timeout=2)
+                except Exception:
+                    try:
+                        proc.kill()
+                    except Exception:
+                        pass
+        except Exception as e:
+            print(f"❌ Cleanup oldest stream failed: {e}")
 
 
 @app.route('/live/<channel_id>', methods=['GET'])
@@ -251,18 +296,22 @@ def run_live(channel_id):
         return jsonify({'Error': 'Url not found'}), 400
     headers = data.get("headers", None)
     channel_rtmp_url = join_url(rtmp_live_id_url, channel_id)
+    cleanup_streams(live_running_streams)
     if channel_id in live_running_streams:
         process = live_running_streams[channel_id]
         if process.poll() is None:
             return redirect(channel_rtmp_url)
         else:
             del live_running_streams[channel_id]
-    cleanup_streams(live_running_streams)
+    # cleanup already performed above
     cmd = [
         'ffmpeg',
         '-loglevel', 'error',
         '-re',
-        '-headers', ''.join(f'{k}: {v}\r\n' for k, v in headers.items()) if headers else '',
+    ]
+    if headers:
+        cmd += ['-headers', ''.join(f'{k}: {v}\r\n' for k, v in headers.items())]
+    cmd += [
         '-i', url.partition('$')[0],
         '-c:v', 'copy',
         '-c:a', 'copy',
@@ -271,6 +320,7 @@ def run_live(channel_id):
         channel_rtmp_url
     ]
     try:
+        print(f"▶️ FFmpeg live start: id={channel_id}, dst={channel_rtmp_url}")
         process = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
@@ -298,7 +348,9 @@ def run_hls(channel_id):
         return jsonify({'Error': 'Url not found'}), 400
     headers = data.get("headers", None)
     channel_file = f'{channel_id}.m3u8'
+    ensure_hls_dir()
     m3u8_path = os.path.join(hls_temp_path, channel_file)
+    cleanup_streams(hls_running_streams)
     if channel_id in hls_running_streams:
         process = hls_running_streams[channel_id]
         if process.poll() is None:
@@ -308,12 +360,15 @@ def run_hls(channel_id):
                 return jsonify({'status': 'pending', 'message': 'Stream is starting'}), 202
         else:
             del hls_running_streams[channel_id]
-    cleanup_streams(hls_running_streams)
+    # cleanup already performed above
     cmd = [
         'ffmpeg',
         '-loglevel', 'error',
         '-re',
-        '-headers', ''.join(f'{k}: {v}\r\n' for k, v in headers.items()) if headers else '',
+    ]
+    if headers:
+        cmd += ['-headers', ''.join(f'{k}: {v}\r\n' for k, v in headers.items())]
+    cmd += [
         '-stream_loop', '-1',
         '-i', url.partition('$')[0],
         '-c:v', 'copy',
@@ -323,6 +378,7 @@ def run_hls(channel_id):
         join_url(rtmp_hls_id_url, channel_id)
     ]
     try:
+        print(f"▶️ FFmpeg hls start: id={channel_id}, file={channel_file}")
         process = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
@@ -365,13 +421,15 @@ def run_service():
                 finally:
                     os.chdir(original_dir)
             ip_address = get_ip_address()
-            print(f"📄 Speed test log: {ip_address}/log")
+            print(f"📄 Result log: {ip_address}/log/result")
+            print(f"📄 Speed test log: {ip_address}/log/speed-test")
             if config.open_rtmp:
                 print(f"🚀 Live api: {ip_address}/live")
                 print(f"🚀 HLS api: {ip_address}/hls")
             print(f"🚀 IPv4 api: {ip_address}/ipv4")
             print(f"🚀 IPv6 api: {ip_address}/ipv6")
             print(f"✅ You can use this url to watch IPTV 📺: {ip_address}")
+            ensure_hls_dir()
             app.run(host="0.0.0.0", port=config.app_port)
     except Exception as e:
         print(f"❌ Service start failed: {e}")

@@ -40,13 +40,18 @@ def parse_epg(epg_content):
         channel_stop = datetime.strptime(
             re.sub(r'\s+', '', programme.get('stop')), "%Y%m%d%H%M%S%z")
         channel_text = opencc_t2s.convert(programme.find('title').text)
-        channel_elem = ET.SubElement(
-            root, 'programme', attrib={"channel": channel_id, "start": channel_start.strftime("%Y%m%d%H%M%S +0800"),
-                                       "stop": channel_stop.strftime("%Y%m%d%H%M%S +0800")})
-        channel_elem_s = ET.SubElement(
-            channel_elem, 'title', attrib={"lang": "zh"})
-        channel_elem_s.text = channel_text
-        programmes[channel_id].append(channel_elem)
+        # 构建独立的 programme 元素，避免在解析阶段向 root 追加，统一由写入阶段处理
+        prog_elem = ET.Element(
+            'programme',
+            attrib={
+                "channel": channel_id,
+                "start": channel_start.strftime("%Y%m%d%H%M%S +0800"),
+                "stop": channel_stop.strftime("%Y%m%d%H%M%S +0800"),
+            }
+        )
+        title_elem = ET.SubElement(prog_elem, 'title', attrib={"lang": "zh"})
+        title_elem.text = channel_text
+        programmes[channel_id].append(prog_elem)
 
     return channels, programmes
 
@@ -62,6 +67,8 @@ async def get_epg(names=None, callback=None):
         desc=f"Processing epg",
     )
     start_time = time()
+    if callback:
+        callback(f"任务:EPG | 总数 {urls_len}", 0)
     result = defaultdict(list)
     all_result_verify = set()
     session = Session()
@@ -102,7 +109,7 @@ async def get_epg(names=None, callback=None):
             remain = urls_len - pbar.n
             if callback:
                 callback(
-                    f"正在获取EPG源, 剩余{remain}个源待获取, 预计剩余时间: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
+                    f"任务:EPG | 剩余 {remain} | 预计剩余: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
                     int((pbar.n / urls_len) * 100),
                 )
 

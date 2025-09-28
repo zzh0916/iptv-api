@@ -84,7 +84,7 @@ async def get_channels_by_fofa(urls=None, multicast=False, callback=None):
         mode_name = "组播" if multicast else "酒店"
         if callback:
             callback(
-                f"正在获取Fofa{mode_name}源, 共{fofa_urls_len}个查询地址",
+                f"任务:FOFA {mode_name} | 总数 {fofa_urls_len}",
                 0,
             )
         open_driver = config.open_driver
@@ -152,7 +152,7 @@ async def get_channels_by_fofa(urls=None, multicast=False, callback=None):
                 remain = fofa_urls_len - pbar.n
                 if callback:
                     callback(
-                        f"正在获取Fofa{mode_name}源, 剩余{remain}个查询地址待获取, 预计剩余时间: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
+                        f"任务:FOFA {mode_name} | 剩余 {remain} | 预计剩余: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
                         int((pbar.n / fofa_urls_len) * 100),
                     )
 
@@ -176,7 +176,7 @@ async def get_channels_by_fofa(urls=None, multicast=False, callback=None):
         pbar.update(0)
         if callback:
             callback(
-                f"正在获取Fofa{mode_name}源",
+                f"任务:FOFA {mode_name}",
                 100,
             )
         if not open_driver:

@@ -167,7 +167,7 @@ async def get_channels_by_online_search(names, callback=None):
             pbar.update()
             if callback:
                 callback(
-                    f"正在进行线上查询, 剩余{names_len - pbar.n}个频道待查询, 预计剩余时间: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
+                    f"任务:线上搜索 | 剩余 {names_len - pbar.n} | 预计剩余: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
                     int((pbar.n / names_len) * 100),
                 )
             return {"name": format_channel_name(name), "data": info_list}
@@ -175,7 +175,7 @@ async def get_channels_by_online_search(names, callback=None):
     names_len = len(names)
     pbar = tqdm_asyncio(total=names_len, desc="Online search")
     if callback:
-        callback(f"正在进行线上查询, 共{names_len}个频道", 0)
+        callback(f"任务:线上搜索 | 总数 {names_len}", 0)
     with ThreadPoolExecutor(max_workers=3) as executor:
         futures = [
             executor.submit(process_channel_by_online_search, name) for name in names

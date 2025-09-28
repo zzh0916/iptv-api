@@ -73,39 +73,53 @@ class UpdateSource:
             ("epg", get_epg, "epg_result"),
         ]
 
+        created_tasks: list[asyncio.Task] = []
+        task_bindings: list[tuple[str, str]] = []
+
         for setting, task_func, result_attr in tasks_config:
-            if (
-                    setting == "hotel_foodie" or setting == "hotel_fofa"
-            ) and config.open_hotel == False:
+            # 关闭酒店源时跳过酒店模式
+            if (setting == "hotel_foodie" or setting == "hotel_fofa") and config.open_hotel == False:
                 continue
             if config.open_method[setting]:
                 if setting == "subscribe":
                     subscribe_urls = get_urls_from_file(constants.subscribe_path)
                     whitelist_urls = get_urls_from_file(constants.whitelist_path)
                     if not os.getenv("GITHUB_ACTIONS") and config.cdn_url:
-                        subscribe_urls = [join_url(config.cdn_url, url) if "raw.githubusercontent.com" in url else url
-                                          for url in subscribe_urls]
+                        subscribe_urls = [
+                            join_url(config.cdn_url, url) if "raw.githubusercontent.com" in url else url
+                            for url in subscribe_urls
+                        ]
                     task = asyncio.create_task(
-                        task_func(subscribe_urls,
-                                  names=channel_names,
-                                  whitelist=whitelist_urls,
-                                  callback=self.update_progress
-                                  )
+                        task_func(
+                            subscribe_urls,
+                            names=channel_names,
+                            whitelist=whitelist_urls,
+                            callback=self.update_progress,
+                        )
                     )
                 elif setting == "hotel_foodie" or setting == "hotel_fofa":
                     task = asyncio.create_task(task_func(callback=self.update_progress))
                 else:
-                    task = asyncio.create_task(
-                        task_func(channel_names, callback=self.update_progress)
-                    )
+                    task = asyncio.create_task(task_func(channel_names, callback=self.update_progress))
+
                 self.tasks.append(task)
-                setattr(self, result_attr, await task)
+                created_tasks.append(task)
+                task_bindings.append((result_attr, setting))
+
+        if created_tasks:
+            results = await asyncio.gather(*created_tasks, return_exceptions=True)
+            for (result_attr, setting), res in zip(task_bindings, results):
+                if isinstance(res, Exception):
+                    print(f"❌ Error on task {setting}: {res}")
+                    setattr(self, result_attr, {})
+                else:
+                    setattr(self, result_attr, res)
 
     def pbar_update(self, name: str = "", item_name: str = ""):
         if self.pbar.n < self.total:
             self.pbar.update()
             self.update_progress(
-                f"正在进行{name}, 剩余{self.total - self.pbar.n}个{item_name}, 预计剩余时间: {get_pbar_remaining(n=self.pbar.n, total=self.total, start_time=self.start_time)}",
+                f"任务:{name} | 剩余 {self.total - self.pbar.n} 个 {item_name} | 预计剩余: {get_pbar_remaining(n=self.pbar.n, total=self.total, start_time=self.start_time)}",
                 int((self.pbar.n / self.total) * 100),
             )
 

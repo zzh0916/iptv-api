@@ -8,9 +8,19 @@ on:
       - master
       - dev
       - gd
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: iptv-update-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   push:
     runs-on: ${{ matrix.operating-system }}
+    timeout-minutes: 60
     strategy:
       matrix:
         operating-system: [ 'ubuntu-latest' ]
@@ -18,15 +28,17 @@ jobs:
       - name: Set branch name
         id: vars
         run: echo "BRANCH_NAME=${{ github.repository_owner == 'Guovin' && 'gd' || 'master' }}" >> $GITHUB_ENV
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH_NAME }}
+          fetch-depth: 0
       - name: Run with setup-python 3.13
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
           update-environment: true
-          cache: 'pipenv'
+          cache: 'pip'
+          cache-dependency-path: 'Pipfile.lock'
       - name: Check open_driver config
         id: check_driver
         run: |
@@ -56,12 +68,23 @@ jobs:
         run: pipenv install selenium
       - name: Update
         run: pipenv run dev
+      - name: Upload output artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iptv-output
+          path: |
+            output/**
+            output/log/**
+            output/epg/**
+          if-no-files-found: warn
+          retention-days: 7
       - name: Commit and push if changed
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .
+          git add output/** version.json || true
           if ! git diff --staged --quiet; then
             git commit -m "Github Action Auto Updated"
-            git push --force
+            git push
           fi

@@ -161,7 +161,7 @@ async def get_channels_by_multicast(names, callback=None):
                 pbar.update()
                 if callback:
                     callback(
-                        f"正在进行Foodie组播更新, 剩余{region_type_list_len - pbar.n}个地区待查询, 预计剩余时间: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
+                        f"任务:Foodie 组播 | 剩余 {region_type_list_len - pbar.n} | 预计剩余: {get_pbar_remaining(n=pbar.n, total=pbar.total, start_time=start_time)}",
                         int((pbar.n / region_type_list_len) * 100),
                     )
                 return {"region": region, "type": type, "data": info_list}
@@ -171,7 +171,7 @@ async def get_channels_by_multicast(names, callback=None):
             pbar = tqdm_asyncio(total=region_type_list_len, desc="Multicast search")
             if callback:
                 callback(
-                    f"正在进行Foodie组播更新, {len(names)}个频道, 共{region_type_list_len}个地区",
+                    f"任务:Foodie 组播 | 频道 {len(names)} | 地区 {region_type_list_len}",
                     0,
                 )
             start_time = time()
